@@ -9,3 +9,7 @@ if there is anyone out there who knows or can record the sound without backgroun
 In order to run use command pip install pycozmo. 
 pip install ffmpeg
 then run the python file.
+# Things to do 
+Make live stream: not sure how to do yet
+Make adjustable how far down the head and lift go: tried but failed as it would only allow to be clicked once beeing worked on
+Add controlls to move cozmo: not sure what the buttons should look like yet
