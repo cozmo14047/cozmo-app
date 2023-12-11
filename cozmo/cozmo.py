@@ -4,6 +4,7 @@ import time
 h = .2
 # Connect to Cozmo
 with pycozmo.connect() as cli:
+    time.sleep(1)
     angle = (pycozmo.robot.MAX_HEAD_ANGLE.radians - pycozmo.robot.MIN_HEAD_ANGLE.radians) / 2.0
     cli.set_head_angle(angle)
     time.sleep(1)
@@ -23,7 +24,7 @@ with pycozmo.connect() as cli:
 
     # Label with message
     message_label = tkinter.Label(
-        root, text="Please ensure you are connected.", fg="white", bg="black"
+        root, text="", fg="white", bg="black"
     )
     message_label.pack()
 
@@ -32,6 +33,20 @@ with pycozmo.connect() as cli:
         root, text="Raise Head", command=lambda: cli.set_head_angle(angle + 0.4)
     )
     raise_head_button.pack()
+
+    raise_lift_button = tkinter.Button(
+        root, text="Raise lift", command=lambda: cli.set_lift_height(pycozmo.MAX_LIFT_HEIGHT.mm)
+    )
+    raise_lift_button.pack()
+
+
+
+    lower_lift_button = tkinter.Button(
+        root, text="lower lift", command=lambda: cli.set_lift_height(pycozmo.MIN_LIFT_HEIGHT.mm)
+    )
+    lower_lift_button.pack()
+    
+
 
     # Button to lower head
     lower_head_button = tkinter.Button(
