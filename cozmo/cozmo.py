@@ -1,33 +1,50 @@
 import tkinter
-
-# Import Py Cozmo
-from pycozmo import *
-
+import pycozmo
+import time
+h = .2
 # Connect to Cozmo
-cozmo = connect()
+with pycozmo.connect() as cli:
+    angle = (pycozmo.robot.MAX_HEAD_ANGLE.radians - pycozmo.robot.MIN_HEAD_ANGLE.radians) / 2.0
+    cli.set_head_angle(angle)
+    time.sleep(1)
+      # Set volume to ~75%.
+    cli.set_volume(50000)
 
-# Initialize Tkinter
-root = tkinter.Tk()
-root.title("Cozmo")
-root.configure(bg="black")
-root.geometry("400x300")
+    # A 22 kHz, 16-bit, mono file is required.
+    cli.play_audio("hello.wav")
+    cli.wait_for(pycozmo.event.EvtAudioCompleted)
+    
 
-# Label with message
-message_label = tkinter.Label(
-    root, text="Please ensure you are connected.", fg="white", bg="black"
-)
-message_label.pack()
+    # Initialize Tkinter
+    root = tkinter.Tk()
+    root.title("Cozmo")
+    root.configure(bg="black")
+    root.geometry("400x300")
 
-# Button to raise head
-raise_head_button = tkinter.Button(root, text="Raise Head", command=cozmo.move_head, args=(50, 0.5))
-raise_head_button.pack()
+    # Label with message
+    message_label = tkinter.Label(
+        root, text="Please ensure you are connected.", fg="white", bg="black"
+    )
+    message_label.pack()
 
-# Button to lower head
-lower_head_button = tkinter.Button(root, text="Lower Head", command=cozmo.move_head, args=(-50, 0.5))
-lower_head_button.pack()
+    # Button to raise head
+    raise_head_button = tkinter.Button(
+        root, text="Raise Head", command=lambda: cli.set_head_angle(angle + 0.4)
+    )
+    raise_head_button.pack()
 
-# Start main loop
-root.mainloop()
+    # Button to lower head
+    lower_head_button = tkinter.Button(
+        root, text="Lower Head", command=lambda: cli.set_head_angle(angle - .8)
+    )
+    lower_head_button.pack()
 
-# Disconnect from Cozmo
-cozmo.disconnect()
+    # Calculate head angles:
+    angle = (pycozmo.robot.MAX_HEAD_ANGLE.radians - pycozmo.robot.MIN_HEAD_ANGLE.radians) / 2.0
+    raise_angle = angle + 0.4  # 0.4 radians higher than neutral
+
+    # Start main loop
+    root.mainloop()
+
+# Disconnect from Cozmo after tkinter closes
+cli.disconnect()
