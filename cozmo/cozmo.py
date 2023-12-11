@@ -1,7 +1,8 @@
 import tkinter
 import pycozmo
 import time
-h = .2
+from PIL import ImageTk, Image
+logo_path = "logo.jpg"
 # Connect to Cozmo
 with pycozmo.connect() as cli:
     time.sleep(1)
@@ -19,12 +20,18 @@ with pycozmo.connect() as cli:
     # Initialize Tkinter
     root = tkinter.Tk()
     root.title("Cozmo")
-    root.configure(bg="black")
+    root.configure(bg="#5f5e5f")
     root.geometry("400x300")
+    
+    image = Image.open(logo_path)
+    resized_image = image.resize((550, 100))
+    tk_image = ImageTk.PhotoImage(resized_image)
+    logo_label = tkinter.Label(root, image=tk_image)
+    logo_label.pack()
 
     # Label with message
     message_label = tkinter.Label(
-        root, text="", fg="white", bg="black"
+        root, text="", fg="white", bg="#5f5e5f"
     )
     message_label.pack()
 
