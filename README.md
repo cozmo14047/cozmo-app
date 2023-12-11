@@ -7,4 +7,5 @@ if there is anyone out there who knows or can record the sound without backgroun
 # How to setup
 
 In order to run use command pip install pycozmo. 
+pip install ffmpeg
 then run the python file.
