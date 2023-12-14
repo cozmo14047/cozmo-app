@@ -11,5 +11,4 @@ pip install ffmpeg
 then run the python file.
 # Things to do 
 Make live camera stream: not sure how to do yet
-Make adjustable how far down the head and lift go: tried but failed as it would only allow to be clicked once beeing worked on
 Add controlls to move cozmo: not sure what the buttons should look like yet
