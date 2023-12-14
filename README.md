@@ -12,3 +12,4 @@ then run the python file.
 # Things to do 
 Make live camera stream: not sure how to do yet
 Add controlls to move cozmo: not sure what the buttons should look like yet
+change the sounds to cozmos actual sounds: i dont have the sounds so canot do this
